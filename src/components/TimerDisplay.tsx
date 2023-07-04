@@ -13,14 +13,19 @@ import ProgressBar from './ProgressBar';
 type TimerDisplay = {
   remainingTime: TimeFormat;
   totalTimeInSeconds: number;
+  timerToggle: () => void;
 };
 
 const TimerDisplay: FC<TimerDisplay> = ({
   remainingTime,
   totalTimeInSeconds,
+  timerToggle,
 }) => {
   return (
-    <Container>
+    <Container
+      onClick={() => timerToggle()}
+      title="Aperte para Pausar ou Iniciar"
+    >
       <div>
         <TimerElement>
           <span>
@@ -32,7 +37,6 @@ const TimerDisplay: FC<TimerDisplay> = ({
             {remainingTime.minutes.toString().padStart(2, '0').substring(2, 1)}
           </span>
         </TimerElementRight>
-        <span>:</span>
         <TimerElement>
           <span>
             {remainingTime.seconds.toString().padStart(2, '0').substring(1, 0)}

@@ -15,6 +15,7 @@ export const HeaderWrapper = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 10rem;
 `;
 
 export const MenuItem = styled.div`
@@ -104,10 +105,12 @@ export const ProgressContainer = styled.div`
 
 export const Container = styled.div`
   display: flex;
+  cursor: pointer;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: fit-content;
+  margin: 0 auto;
 `;
 
 export const ContainerRow = styled.div`
@@ -117,4 +120,17 @@ export const ContainerRow = styled.div`
   justify-content: space-evenly;
   align-items: center;
   margin: 0 auto;
+`;
+
+export const TimerContainer = styled.main`
+  height: calc(100vh - 10rem - 2.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const Footer = styled.footer`
+  height: 2.5rem;
+  background-color: ${(props) => props.theme.colors.primaryText};
+  color: ${(props) => props.theme.colors.background};
 `;
