@@ -15,7 +15,7 @@ export const HeaderWrapper = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 10rem;
+  height: 6rem;
 `;
 
 export const MenuItem = styled.div`
@@ -23,6 +23,42 @@ export const MenuItem = styled.div`
   transition: all 200ms;
   &:hover {
     filter: brightness(70%);
+  }
+`;
+
+export const InputRow = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+
+  & > input {
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    background-color: ${(props) => props.theme.colors.background};
+    border: 1px solid;
+    border-right: none;
+    border-color: ${(props) => props.theme.colors.primaryText};
+    outline: none;
+    color: ${(props) => props.theme.colors.primaryText};
+    border-radius: 1rem 0px 0px 1rem;
+  }
+
+  & > button {
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: 1px solid;
+    border-left: none;
+    border-color: ${(props) => props.theme.colors.primaryText};
+    border-radius: 0 1rem 1rem 0;
+    background: ${(props) => props.theme.colors.buttonGradient};
+    color: ${(props) => props.theme.colors.background};
+    transition: all 250ms;
+  }
+
+  & > button:disabled {
+    cursor: default;
+    filter: grayscale(100%);
   }
 `;
 
@@ -41,11 +77,18 @@ export const TimerElement = styled.div`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  & > div {
-    font-size: 15rem;
-  }
 `;
 
+export const TimerElementSplit = styled.div`
+  display: inline-block;
+  & > span {
+    font-size: 15rem;
+    background: ${(props) => props.theme.colors.textGradient};
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+`;
 export const TimerElementRight = styled.div`
   display: inline-block;
   background-image: ${(props) => props.theme.colors.timerGradient};
@@ -60,9 +103,6 @@ export const TimerElementRight = styled.div`
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
-  & > div {
-    font-size: 15rem;
   }
 `;
 
@@ -82,11 +122,11 @@ export const ControlButtons = styled.button`
 `;
 
 export const ProgressContainer = styled.div`
-  margin: 1rem 0;
+  margin: 2.2rem 0;
   display: flex;
   justify-content: center;
   progress[value] {
-    width: 80%;
+    width: 60%;
     height: 1.5rem;
     -webkit-appearance: none;
     appearance: none;
@@ -122,15 +162,41 @@ export const ContainerRow = styled.div`
   margin: 0 auto;
 `;
 
+export const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
 export const TimerContainer = styled.main`
-  height: calc(100vh - 10rem - 2.5rem);
+  height: calc(100vh - 6rem - 3rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-export const Footer = styled.footer`
-  height: 2.5rem;
+export const FooterWrapper = styled.footer`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
   background-color: ${(props) => props.theme.colors.primaryText};
-  color: ${(props) => props.theme.colors.background};
+  & > h1 {
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-right: 1rem;
+    color: ${(props) => props.theme.colors.background};
+  }
+  & > a {
+    text-decoration: none;
+    margin-right: 2rem;
+    color: ${(props) => props.theme.colors.background};
+    transition: all 200ms;
+  }
+
+  & > a:hover {
+    transform: translateY(-2px);
+    transform: scale(130%);
+  }
 `;
