@@ -146,7 +146,7 @@ export const ProgressContainer = styled.div`
 export const Container = styled.div`
   display: flex;
   cursor: pointer;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   width: fit-content;
@@ -199,4 +199,19 @@ export const FooterWrapper = styled.footer`
     transform: translateY(-2px);
     transform: scale(130%);
   }
+`;
+export const BlurredContent = styled.div`
+  position: relative;
+  border-radius: 2rem;
+  transition: all 200ms;
+  filter: blur(${(props) => (props.about === 'blurred' ? '10px' : '0px')});
+`;
+
+export const PlayButton = styled.span`
+  cursor: pointer;
+  filter: blur(0px);
+  position: absolute;
+  z-index: 1;
+  right: 48%;
+  top: 34.5%;
 `;

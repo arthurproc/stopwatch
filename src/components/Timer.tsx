@@ -2,12 +2,26 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { convertTime, convertTimeFormatToSeconds } from '../utils/util';
 
-import { ControlButtons, ContainerRow, TimerContainer, InputRow } from '../styles/StyledComponents';
+import { Play } from '@phosphor-icons/react';
+
+import {
+  ControlButtons,
+  ContainerRow,
+  TimerContainer,
+  InputRow,
+  BlurredContent,
+  PlayButton,
+} from '../styles/StyledComponents';
+import dark from '../styles/themes/dark';
+import light from '../styles/themes/light';
 
 import ProgressBar from './ProgressBar';
 import TimerDisplay from './TimerDisplay';
 
-const Timer: FC = () => {
+type TimerProps = {
+  isDarkMode: boolean;
+};
+const Timer: FC<TimerProps> = ({ isDarkMode }) => {
   const [standardTime, setStandardTime] = useState(60 * 5);
   const [endTime, setEndTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -126,13 +140,25 @@ const Timer: FC = () => {
 
   return (
     <TimerContainer>
-      <TimerDisplay
-        timerToggle={toggleTimer}
-        remainingTime={convertTime(remainingTime)}
-        totalTimeInSeconds={standardTime}
-      />
+      <BlurredContent about={!isRunning ? 'blurred' : 'notBlur'}>
+        <TimerDisplay
+          timerToggle={toggleTimer}
+          remainingTime={convertTime(remainingTime)}
+          totalTimeInSeconds={standardTime}
+        />
+        <ProgressBar value={remainingTime} max={standardTime} />
+      </BlurredContent>
 
-      <ProgressBar value={remainingTime} max={standardTime} />
+      {!isRunning && (
+        <PlayButton>
+          <Play
+            size={90}
+            onClick={toggleTimer}
+            weight="fill"
+            color={isDarkMode ? dark.colors.primaryText : light.colors.primaryText}
+          />
+        </PlayButton>
+      )}
 
       <InputRow>
         <input

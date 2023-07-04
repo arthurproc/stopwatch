@@ -17,7 +17,7 @@ const Header: FC<HeaderProps> = ({ isDarkMode, handleToggle }) => {
     <HeaderWrapper>
       <HeaderContainer>
         <Timer size={52} color={isDarkMode ? dark.colors.primaryText : light.colors.primaryText} />
-        <Title>Trybe Stopwatch </Title>
+        <Title>Timer</Title>
       </HeaderContainer>
       <ToggleDarkMode handleToggle={handleToggle} isDarkMode={isDarkMode} />
     </HeaderWrapper>

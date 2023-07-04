@@ -22,7 +22,7 @@ const App = () => {
         <GlobalStyle />
         <MainContainer>
           <Header isDarkMode={isDarkMode} handleToggle={handleToggle} />
-          <Timer />
+          <Timer isDarkMode={isDarkMode} />
         </MainContainer>
         <Footer />
       </ThemeProvider>
