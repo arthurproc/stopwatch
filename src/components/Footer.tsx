@@ -9,10 +9,10 @@ const Footer = () => {
     <>
       <FooterWrapper>
         <h1>Desenvolvido por Gabriel Martins</h1>
-        <a href="LinkedIn">
+        <a href="https://www.linkedin.com/in/gabrielcmm/" target="_blank" rel="noreferrer">
           <LinkedinLogo size={32} />
         </a>
-        <a href="GitHub">
+        <a href="https://www.github.com/gabrielcmm/" target="_blank" rel="noreferrer">
           <GithubLogo size={32} />
         </a>
       </FooterWrapper>

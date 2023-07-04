@@ -115,6 +115,7 @@ const Timer: FC<TimerProps> = ({ isDarkMode }) => {
     setEndTime(timeInSeconds);
     setRemainingTime(timeInSeconds);
     setTimerInput('');
+    setButtonDisabled(true);
   };
 
   const setFixedMinutes = (timeInSeconds: number) => {
