@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { Container, TimerElement, TimerElementRight, TimerElementSplit } from '../styles/StyledComponents';
 import { TimeFormat } from '../types/types';

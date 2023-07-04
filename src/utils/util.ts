@@ -7,9 +7,6 @@ export const convertTime = (timeFromDateNow: number) => {
   };
 };
 
-export const convertTimeFormatToSeconds = ({
-  minutes = 0,
-  seconds = 0,
-}: TimeFormat) => {
+export const convertTimeFormatToSeconds = ({ minutes = 0, seconds = 0 }: TimeFormat) => {
   return minutes * 60 + seconds;
 };

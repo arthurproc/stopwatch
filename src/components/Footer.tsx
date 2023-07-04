@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { GithubLogo, LinkedinLogo } from '@phosphor-icons/react';
 
 import { FooterWrapper } from '../styles/StyledComponents';
