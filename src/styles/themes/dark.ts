@@ -1,6 +1,16 @@
 export default {
   colors: {
-    primaryText: '#97A0B0',
-    background: 'rgb(35, 39, 46)',
+    background: '#141d26',
+    primaryText: '#fff',
+    secondaryText: '#aaa',
+    buttons: '#ff4081',
+    timerBorder: '#333',
+    timerBoxShadow: '#000',
+    activeButton: '#ff6e40',
+    timerGradient:
+      'linear-gradient(to right top, #2e4358 0%, rgb(38,55,71) 30%, #141d26 100%)',
+    textGradient: 'linear-gradient(to right, #000 0%, #ff4081 100%)',
+    buttonGradient: 'linear-gradient(to right, #2e4358 10%, #ff4081 100%)',
+    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
   },
 };

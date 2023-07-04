@@ -1,12 +1,15 @@
 import { TimeFormat } from '../types/types';
 
-export const convertTime = (timeInSeconds: number) => {
+export const convertTime = (timeFromDateNow: number) => {
   return <TimeFormat>{
-    minutes: Math.floor(timeInSeconds / 60),
-    seconds: timeInSeconds % 60,
+    minutes: Math.floor(timeFromDateNow / 60),
+    seconds: timeFromDateNow % 60,
   };
 };
 
-export const convertTimeToFormat = ({ minutes, seconds }: TimeFormat) => {
+export const convertTimeFormatToSeconds = ({
+  minutes,
+  seconds,
+}: TimeFormat) => {
   return minutes * 60 + seconds;
 };

@@ -2,31 +2,77 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { convertTime } from '../utils/util';
 
-import { TimeFormat, TimerProps } from '../types/types';
+import { ControlButtons, ContainerRow } from '../styles/StyledComponents';
 
-const Timer: FC<TimerProps> = ({ timeInSeconds }) => {
-  const [currentTime, setCurrentTime] = useState<TimeFormat>(
-    convertTime(timeInSeconds),
-  );
+import ProgressBar from './ProgressBar';
+import TimerDisplay from './TimerDisplay';
+
+export type TimerProps = {
+  initialTime: number;
+};
+const Timer: FC<TimerProps> = ({ initialTime }) => {
+  const [endTime, setEndTime] = useState<number | null>(null);
+  const [isRunning, setIsRunning] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(initialTime);
+
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (timeInSeconds > 0) {
-        timeInSeconds -= 1;
-        setCurrentTime(convertTime(timeInSeconds));
-      }
-    }, 1000);
+    let intervalId: number;
+
+    if (isRunning && remainingTime > 0) {
+      intervalId = setInterval(() => {
+        const now = Math.floor(Date.now() / 1000);
+        const timeLeft = endTime! - now;
+
+        if (timeLeft > 0) {
+          setRemainingTime(timeLeft);
+        } else {
+          setRemainingTime(0);
+          setIsRunning(false);
+        }
+      }, 100);
+    } else if (remainingTime === 0) {
+      setIsRunning(false);
+    }
+
     return () => {
-      clearInterval(timer);
+      clearInterval(intervalId);
     };
-  }, [timeInSeconds]);
+  }, [isRunning, endTime, remainingTime]);
+
+  const startStopwatch = () => {
+    if (!isRunning) {
+      const now = Math.floor(Date.now() / 1000);
+      setEndTime(now + remainingTime);
+      setIsRunning(true);
+    }
+  };
+
+  const stopStopwatch = () => {
+    setIsRunning(false);
+  };
+
+  const resetStopwatch = () => {
+    setEndTime(null);
+    setRemainingTime(initialTime);
+    setIsRunning(false);
+  };
 
   return (
     <>
       <div>
-        <section>{`${currentTime.minutes} minutes`}</section>
-        <section>{`${currentTime.seconds} seconds`}</section>
+        <TimerDisplay
+          remainingTime={convertTime(remainingTime)}
+          totalTimeInSeconds={initialTime}
+        />
       </div>
-      <button onClick={() => handleStopContinue()}>parar/continuar</button>
+      <ContainerRow>
+        <ProgressBar value={remainingTime} max={initialTime} />
+      </ContainerRow>
+      <ContainerRow>
+        <ControlButtons onClick={startStopwatch}>Start</ControlButtons>
+        <ControlButtons onClick={stopStopwatch}>Stop</ControlButtons>
+        <ControlButtons onClick={resetStopwatch}>Reset</ControlButtons>
+      </ContainerRow>
     </>
   );
 };
