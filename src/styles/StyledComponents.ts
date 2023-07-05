@@ -7,7 +7,7 @@ export const MainContainer = styled.main`
 
 export const Title = styled.h1`
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: bold;
   color: ${(props) => props.theme.colors.primaryText};
 `;
 
