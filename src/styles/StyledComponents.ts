@@ -16,6 +16,10 @@ export const HeaderWrapper = styled.header`
   justify-content: space-between;
   align-items: center;
   height: 6rem;
+  width: 100%;
+  @media (max-width: 420px) {
+    justify-content: space-around;
+  }
 `;
 
 export const MenuItem = styled.div`
@@ -60,6 +64,15 @@ export const InputRow = styled.div`
     cursor: default;
     filter: grayscale(100%);
   }
+
+  @media (max-width: 420px) {
+    & > input {
+      font-size: 1rem;
+    }
+    & > button {
+      font-size: 1rem;
+    }
+  }
 `;
 
 export const TimerElement = styled.div`
@@ -77,6 +90,13 @@ export const TimerElement = styled.div`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  @media (max-width: 420px) {
+    & > span {
+      font-size: 4rem;
+      padding: 1.5rem;
+    }
+  }
 `;
 
 export const TimerElementSplit = styled.div`
@@ -87,6 +107,11 @@ export const TimerElementSplit = styled.div`
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+  @media (max-width: 420px) {
+    & > span {
+      font-size: 4rem;
+    }
   }
 `;
 export const TimerElementRight = styled.div`
@@ -103,6 +128,12 @@ export const TimerElementRight = styled.div`
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+  @media (max-width: 420px) {
+    & > span {
+      font-size: 4rem;
+      padding: 1.5rem;
+    }
   }
 `;
 
@@ -144,8 +175,8 @@ export const ProgressContainer = styled.div`
 `;
 
 export const Container = styled.div`
-  display: flex;
   cursor: pointer;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -160,6 +191,14 @@ export const ContainerRow = styled.div`
   justify-content: space-evenly;
   align-items: center;
   margin: 0 auto;
+  @media (max-width: 420px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    & > button:nth-child(1) {
+      grid-column: 1 / span 2;
+    }
+  }
 `;
 
 export const HeaderContainer = styled.div`
@@ -214,4 +253,8 @@ export const PlayButton = styled.span`
   z-index: 1;
   right: 48%;
   top: 34.5%;
+  @media (max-width: 420px) {
+    top: 26%;
+    right: 39%;
+  }
 `;
