@@ -1,4 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+
+import { useTheme } from 'styled-components';
 
 import { convertTime, convertTimeFormatToSeconds } from '../utils/util';
 
@@ -12,18 +14,13 @@ import {
   BlurredContent,
   PlayButton,
 } from '../styles/StyledComponents';
-import dark from '../styles/themes/dark';
-import light from '../styles/themes/light';
 
 import ProgressBar from './ProgressBar';
 import TimerDisplay from './TimerDisplay';
 
-type TimerProps = {
-  isDarkMode: boolean;
-};
-const Timer: FC<TimerProps> = ({ isDarkMode }) => {
+const Timer: FC = () => {
+  const theme = useTheme();
   const [standardTime, setStandardTime] = useState(60 * 5);
-  const [endTime, setEndTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [remainingTime, setRemainingTime] = useState(standardTime);
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -32,21 +29,26 @@ const Timer: FC<TimerProps> = ({ isDarkMode }) => {
     'https://cdn.videvo.net/videvo_files/audio/premium/audio0053/watermarked/CLOCK-TIMER_GEN-HDF-07733_preview.mp3',
   );
   alarmSound.loop = false;
+  const endTime = Math.floor(Date.now() / 1000) + remainingTime;
+
+  const intervalIdRef = useRef<number>();
+
+  const tick = useCallback(() => {
+    const now = Math.floor(Date.now() / 1000);
+    const timeLeft = endTime - now;
+
+    if (timeLeft > 0) {
+      setRemainingTime(timeLeft);
+    } else {
+      setRemainingTime(0);
+      setIsRunning(false);
+    }
+  }, [endTime]);
+
   useEffect(() => {
-    let intervalId: number;
-
+    console.count('render');
     if (isRunning && remainingTime > 0) {
-      intervalId = setInterval(() => {
-        const now = Math.floor(Date.now() / 1000);
-        const timeLeft = endTime - now;
-
-        if (timeLeft > 0) {
-          setRemainingTime(timeLeft);
-        } else {
-          setRemainingTime(0);
-          setIsRunning(false);
-        }
-      }, 100);
+      intervalIdRef.current = setInterval(tick, 1000);
     } else if (remainingTime === 0 && !isRunning) {
       const alarmSound = new Audio(
         'https://cdn.videvo.net/videvo_files/audio/premium/audio0053/watermarked/CLOCK-TIMER_GEN-HDF-07733_preview.mp3',
@@ -60,22 +62,19 @@ const Timer: FC<TimerProps> = ({ isDarkMode }) => {
     }
 
     return () => {
-      clearInterval(intervalId);
+      clearInterval(intervalIdRef.current);
     };
-  }, [isRunning, endTime, remainingTime]);
+  }, [isRunning, remainingTime, tick]);
 
   const toggleTimer = () => {
     if (!isRunning) {
-      const now = Math.floor(Date.now() / 1000);
-      setEndTime(now + remainingTime);
       setIsRunning(true);
-    } else if (isRunning && remainingTime > 0) {
+    } else {
       setIsRunning(false);
     }
   };
 
   const resetTimer = () => {
-    setEndTime(0);
     setRemainingTime(standardTime);
     setIsRunning(false);
   };
@@ -112,7 +111,6 @@ const Timer: FC<TimerProps> = ({ isDarkMode }) => {
     });
     setIsRunning(false);
     setStandardTime(timeInSeconds);
-    setEndTime(timeInSeconds);
     setRemainingTime(timeInSeconds);
     setTimerInput('');
     setButtonDisabled(true);
@@ -121,20 +119,17 @@ const Timer: FC<TimerProps> = ({ isDarkMode }) => {
   const setFixedMinutes = (timeInSeconds: number) => {
     setIsRunning(false);
     setStandardTime(timeInSeconds);
-    setEndTime((timeInSeconds) => timeInSeconds + 60);
     setRemainingTime(timeInSeconds);
   };
 
   const addMinute = async () => {
     setStandardTime((timeInSeconds) => timeInSeconds + 60);
-    setEndTime((timeInSeconds) => timeInSeconds + 60);
     setRemainingTime((timeInSeconds) => timeInSeconds + 60);
   };
 
   const removeMinute = () => {
     if (remainingTime - 60 >= 0) {
       setStandardTime((timeInSeconds) => timeInSeconds - 60);
-      setEndTime((timeInSeconds) => timeInSeconds - 60);
       setRemainingTime((timeInSeconds) => timeInSeconds - 60);
     }
   };
@@ -152,12 +147,7 @@ const Timer: FC<TimerProps> = ({ isDarkMode }) => {
 
       {!isRunning && (
         <PlayButton>
-          <Play
-            size={90}
-            onClick={toggleTimer}
-            weight="fill"
-            color={isDarkMode ? dark.colors.primaryText : light.colors.primaryText}
-          />
+          <Play size={90} onClick={toggleTimer} weight="fill" color={theme.colors.primaryText} />
         </PlayButton>
       )}
 
