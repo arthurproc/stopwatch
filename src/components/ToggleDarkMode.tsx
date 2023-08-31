@@ -1,22 +1,23 @@
 import { FC } from 'react';
 
+import { useTheme } from 'styled-components';
+
 import { Moon, Sun } from '@phosphor-icons/react';
 
 import { MenuItem } from '../styles/StyledComponents';
-import dark from '../styles/themes/dark';
-import light from '../styles/themes/light';
 
 type ToggleDarkModeProps = {
-  isDarkMode: boolean;
   handleToggle: () => void;
 };
-const ToggleDarkMode: FC<ToggleDarkModeProps> = ({ isDarkMode, handleToggle }) => {
+const ToggleDarkMode: FC<ToggleDarkModeProps> = ({ handleToggle }) => {
+  const theme = useTheme();
+
   return (
     <MenuItem>
-      {isDarkMode ? (
-        <Sun size={52} onClick={handleToggle} color={dark.colors.primaryText} />
+      {theme.currentTheme == 'dark' ? (
+        <Sun size={52} onClick={handleToggle} color={theme.colors.primaryText} />
       ) : (
-        <Moon size={52} onClick={handleToggle} color={light.colors.primaryText} />
+        <Moon size={52} onClick={handleToggle} color={theme.colors.primaryText} />
       )}
     </MenuItem>
   );

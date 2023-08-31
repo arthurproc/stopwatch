@@ -21,8 +21,8 @@ const App = () => {
       <ThemeProvider theme={isDarkMode ? dark : light}>
         <GlobalStyle />
         <MainContainer>
-          <Header isDarkMode={isDarkMode} handleToggle={handleToggle} />
-          <Timer isDarkMode={isDarkMode} />
+          <Header handleToggle={handleToggle} />
+          <Timer />
         </MainContainer>
         <Footer />
       </ThemeProvider>

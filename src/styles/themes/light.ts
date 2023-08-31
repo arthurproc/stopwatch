@@ -7,4 +7,5 @@ export default {
     buttonGradient: 'linear-gradient(to right, #ccc 10%, #23538A 100%)',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
   },
+  currentTheme: 'light',
 };
